@@ -16,6 +16,13 @@ app.set('view engine', 'jade');
 // Database connection
 const db = require('./helper/db')();
 
+//Middleware
+const verifyToken = require('./middleware/verify-token');
+
+//Config
+const config = require('./config');
+app.set('api_secret_key', config.api_secret_key);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,6 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api', verifyToken);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
