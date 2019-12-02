@@ -11,7 +11,7 @@ function Blockchain() {
     this.createNewBlock(100, '0', '0');
 }
 
-Blockchain.prototype.createNewBlock = (nonce, previousBlockHash, hash) => {
+Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
     const newBlock = {
         index: this.chain.length + 1,
         timestamp: Date.now(),
@@ -26,11 +26,11 @@ Blockchain.prototype.createNewBlock = (nonce, previousBlockHash, hash) => {
     return newBlock;
 };
 
-Blockchain.prototype.getLastBlock =  () => {
+Blockchain.prototype.getLastBlock =  function() {
     return this.chain[this.chain.length - 1];
 };
 
-Blockchain.prototype.createNewTransaction = (reward = null, choice, sender, recipient) => {
+Blockchain.prototype.createNewTransaction = function(reward = null, choice, sender, recipient) {
     const newTransaction = {
         reward: reward,
         choice: choice,
@@ -41,18 +41,18 @@ Blockchain.prototype.createNewTransaction = (reward = null, choice, sender, reci
     return newTransaction;
 };
 
-Blockchain.prototype.addTransactionToPendingTransactions = (transactionObj) => {
+Blockchain.prototype.addTransactionToPendingTransactions = function(transactionObj) {
     this.pendingTransactions.push(transactionObj);
     return this.getLastBlock()['index'] + 1;
 };
 
-Blockchain.prototype.hashBlock = (previousBlockHash, currentBlockData, nonce) => {
+Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce) {
     const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData);
     const hash = sha256(dataAsString);
     return hash;
 };
 
-Blockchain.prototype.proofOfWork = (previousBlockHash, currentBlockData) => {
+Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData) {
     let nonce = 0;
     let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
     while (hash.substring(0, 4) !== '0000'){
@@ -62,7 +62,7 @@ Blockchain.prototype.proofOfWork = (previousBlockHash, currentBlockData) => {
     return nonce;
 };
 
-Blockchain.prototype.chainIsValid = (blockchain) => {
+Blockchain.prototype.chainIsValid = function(blockchain) {
     let validChain = true;
 
     for(let i = 1; i < blockchain.length; i++){

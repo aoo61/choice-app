@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Blockchain i gösterme
-app.get('/blockchain', (req, res) => {
+app.get('/', (req, res) => {
     res.send(myBlockchain);
 });
 
