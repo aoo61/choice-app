@@ -27,6 +27,14 @@
     "request": "^2.88.0",
     "uuid": "latest",
     "request-promise": "^4.2.5",
-    "sha256": "^0.2.0"
+    "sha256": "^0.2.0",
+    "angular": "^1.7.9",
+    "bootstrap": "^4.4.1",
+    "animate.css": "^3.7.2",
+    "jquery": "https://github.com/jquery/jquery"
+  },
+  "devDependencies": {
+    "express-handlebars": "^3.1.0",
+    "nodemailer": "^6.4.1"
   }
 }

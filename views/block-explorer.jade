@@ -1,0 +1,79 @@
+extends layout
+
+block content
+    .container(ng-controller='MainController')
+        .row
+            .col-md-8.offset-md-2
+                h1#page-title Block Explorer
+        .row
+            .col-md-6.offset-md-3
+                form(ng-submit='search(searchValue)')
+                    .form-group
+                        input.form-control(type='text', ng-model='searchValue')
+                    .form-group
+                        select.form-control(ng-model='searchType')
+                            option(value='block') Block Hash
+                            option(value='transaction') Transaction ID
+                            option(value='address') Address
+                    button.btn.btn-primary.margin-auto.btn-search(type='submit')
+                        | Search
+                    p.no-data-text(ng-if='!block && !transaction && !addressData && initialSearchMade')
+                        | No data found for search.
+        .row
+            .col-md-10.offset-md-1
+                // 'display block' table
+                h3.table-title(ng-if='block') Block
+                table.table.table-striped(ng-if='block')
+                    tbody
+                       tr
+                           td.bold Block Hash
+                           td {{ block.hash }}
+                       tr
+                           td.bold Index
+                           td {{ block.index }}
+                       tr
+                           td.bold Time Stamp
+                           td {{ block.timestamp }}
+                       tr
+                           td.bold Nonce
+                           td {{ block.nonce }}
+                       tr
+                           td.bold Previous Hash
+                           td {{ block.previousBlockHash }}
+                       tr
+                           td.bold Number Transactions
+                           td {{ block.transactions.length }}
+                // end 'display block' table
+                // 'display transaction' table
+                h3.table-title(ng-if='transaction') Transaction
+                table.table.table-striped(ng-if='transaction')
+                    tbody
+                        tr
+                            td.bold Sender
+                            td {{ transaction.sender }}
+                        tr
+                            td.bold Recipient
+                            td {{ transaction.recipient }}
+                        tr
+                            td.bold Amount
+                            td {{ transaction.amount }}
+                // end 'display transaction' table
+
+                // 'display address' table
+                h3.table-title(ng-if='addressData') Address
+                p#balance-text(ng-if='addressData') (Balance: {{ addressData.addressBalance }})
+                table.table.table-striped(ng-if='addressData')
+                    thead
+                        tr
+                            th(scope='col') Sender
+                            th(scope='col') Recipient
+                            th(scope='col') Amount
+                    tbody
+                        tr(ng-repeat='transaction in addressData.addressTransactions')
+                            td {{ transaction.sender }}
+                            td {{ transaction.recipient }}
+                            td {{ transaction.amount }}
+                // end 'display address' table
+
+append javascript
+    script(src='javascripts/block-explorer.js')

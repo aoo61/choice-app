@@ -1,0 +1,23 @@
+{
+  "name": "choice-app",
+  "description": "",
+  "main": "",
+  "authors": [
+    "aoo61 <a.osman.ozoglu@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "choice",
+    "blockchain",
+    "app",
+    "with",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/aoo61/choice-app",
+  "dependencies": {
+    "angular": "^1.7.9",
+    "bootstrap": "^4.4.1",
+    "animate.css": "^3.7.2",
+    "jquery": "https://github.com/jquery/jquery"
+  }
+}

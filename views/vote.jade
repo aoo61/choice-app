@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    section.hero-wrap.hero-wrap-2(style="background-image: url('images/secim.jpg');" data-stellar-background-ratio='0.5')
+        .overlay
+        .container
+            .row.no-gutters.slider-text.align-items-center.justify-content-center
+                .col-md-9.ftco-animate.text-center
+                    h1.mb-2.bread Oy Kullanma
+                    p.breadcrumbs
+                        span.mr-2
+                            a(href='index')
+                                | Anasayfa
+                                i.ion-ios-arrow-forward
+                        span
+                            | Oy Kullanma
+                            i.ion-ios-arrow-forward
+    section.ftco-section.ftco-services
+        .container
+            .row
+                .col-md-4.d-flex.services.align-self-stretch.p-4.ftco-animate
+                    .media.block-6.d-block
+                        .img.w-100(style='background-image: url(images/dept-1.jpg);')
+                        .media-body.p-2.mt-3
+                            h3.heading Dental Implants
+                            p
+                                | Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+                .col-md-4.d-flex.services.align-self-stretch.p-4.ftco-animate
+                    .media.block-6.d-block
+                        .img.w-100(style='background-image: url(images/dept-2.jpg);')
+                        .media-body.p-2.mt-3
+                            h3.heading Cosmetic Dentistry
+                            p
+                                | Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+                .col-md-4.d-flex.services.align-self-stretch.p-4.ftco-animate
+                    .media.block-6.d-block
+                        .img.w-100(style='background-image: url(images/dept-3.jpg);')
+                        .media-body.p-2.mt-3
+                            h3.heading Dental Care
+                            p
+                                | Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+    // loader
+    #ftco-loader.show.fullscreen
+        svg.circular(width='48px' height='48px')
+            circle.path-bg(cx='24' cy='24' r='22' fill='none' stroke-width='4' stroke='#eeeeee')
+            circle.path(cx='24' cy='24' r='22' fill='none' stroke-width='4' stroke-miterlimit='10' stroke='#F96D00')

@@ -29,11 +29,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', indexRouter);
 app.use('/blockchain', verifyToken);
 app.use('/blockchain/users', usersRouter);
-app.use('/a', networkNodeRouter);
+app.use('/blockchain/network', networkNodeRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
