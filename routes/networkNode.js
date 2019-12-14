@@ -41,7 +41,7 @@ app.post('/transaction/broadcast', (req, res) => {
     });
     Promise.all(requestPromises)
         .then(data => {
-            res.render('vote');
+            res.redirect('/vote');
         });
 });
 
@@ -89,10 +89,11 @@ app.get('/mine', (req, res) => {
                 block: newBlock
             });
         });
-    res.json({
+    /*res.json({
         note: "Block minning yapıldı.",
         block: newBlock
-    });
+    });*/
+    res.render('mine');
 });
 
 // Yeni block u onaylama
