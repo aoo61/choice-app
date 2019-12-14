@@ -1,42 +1,36 @@
 const express = require('express');
-const router = express.Router();
+const app = express();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const exphbs = require('express-handlebars');
-const path = require('path');
 const nodemailer = require('nodemailer');
-
+const Blockchain = require('../Models/Blockchain');
 const User = require('../models/User');
 
-router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+app.get('/', (req, res, next) => {
+  res.render('index');
 });
 
-router.get('/index', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+app.get('/index', (req, res, next) => {
+  res.render('index');
 });
 
-router.get('/about', (req, res, next) => {
-  res.render('about', { title: 'Express' });
+app.get('/about', (req, res, next) => {
+  res.render('about');
 });
 
-router.get('/vote', (req, res, next) => {
-  res.render('vote', { title: 'Express' });
+app.get('/vote', (req, res, next) => {
+  res.render('vote');
 });
 
-router.get('/contact', (req, res, next) => {
-  res.render('contact', { title: 'Express' });
+app.get('/contact', (req, res, next) => {
+  res.render('contact');
 });
 
-router.get('/results', (req, res, next) => {
-  res.render('results', { title: 'Express' });
+app.get('/blockchain', (req, res, next) => {
+  res.render('blockchain');
 });
 
-router.get('/blockchain', (req, res, next) => {
-  res.render('blockchain', { title: 'Express' });
-});
-
-router.post('/register', (req, res) => {
+app.post('/register', (req, res) => {
   const {username, password } = req.body;
   bcrypt.hash(password, 10).then(hash => {
     const user = new User ({
@@ -53,7 +47,7 @@ router.post('/register', (req, res) => {
   });
 });
 
-router.post('/authenticate', (req, res) => {
+app.post('/authenticate', (req, res) => {
   const {username, password} = req.body;
   User.findOne({
     username
@@ -89,8 +83,7 @@ router.post('/authenticate', (req, res) => {
   });
 });
 
-router.post('/send', (req, res) => {
-  let subject = req.body.subject;
+app.post('/send', (req, res) => {
   const output = `
     <p>Bir iletişim isteğiniz var.</p>
     <h3>İletişim Detayları</h3>
@@ -136,12 +129,12 @@ router.post('/send', (req, res) => {
     console.log('Message sent: %s', info.messageId);
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-    res.render('contact', {msg:'Email has been sent'});
+    res.render('contact');
   });
 });
 
-router.get('/block-explorer', (req, res, next) => {
+app.get('/block-explorer', (req, res, next) => {
   res.render('block-explorer', { root: __dirname });
 });
 
-module.exports = router;
+module.exports = app;

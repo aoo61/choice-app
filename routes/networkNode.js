@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const Blockchain = require('../Models/Blockchain');
 const uuid = require('uuid/v1');
-const port = process.argv[2];
 const rp = require('request-promise');
 
 const nodeAddress = uuid().split('-').join('');
@@ -42,8 +41,8 @@ app.post('/transaction/broadcast', (req, res) => {
     });
     Promise.all(requestPromises)
         .then(data => {
-            res.json({ note: 'Transaction oluşturuldu ve broadcast de yayınlandı.' });
-        })
+            res.render('vote');
+        });
 });
 
 // Oluşturulan block u mining yapma
@@ -76,7 +75,6 @@ app.get('/mine', (req, res) => {
                 uri: myBlockchain.currentNodeUrl + '/transaction/broadcast',
                 method: 'POST',
                 body: {
-                    reward: 12.5,
                     choice: null,
                     sender: "00",
                     recipient: nodeAddress
@@ -239,6 +237,12 @@ app.get('/address/:address', (req, res) => {
 
 app.get('/block-explorer', (req, res) => {
     res.sendFile('./views/block-explorer', { root: __dirname });
+});
+
+app.get('/results', (req, res, next) => {
+    let choice = myBlockchain.getResults();
+    console.log(choice);
+    res.render('results');
 });
 
 module.exports = app;

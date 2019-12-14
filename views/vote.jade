@@ -1,46 +1,36 @@
-extends layout
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, shrink-to-fit=no')
+        title Seçim Benim - Blockchain İle Güvenli Seçim
+        link(rel='stylesheet', href='/yeni/assets/bootstrap/css/bootstrap.min.css')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700')
+        link(rel='stylesheet', href='/yeni/assets/fonts/font-awesome.min.css')
+        link(rel='stylesheet', href='/yeni/assets/fonts/ionicons.min.css')
+        link(rel='image', href='images/A.png')
 
-block content
-    section.hero-wrap.hero-wrap-2(style="background-image: url('images/secim.jpg');" data-stellar-background-ratio='0.5')
-        .overlay
+    body.d-flex.flex-grow-0.justify-content-center.align-content-center.align-items-lg-center
         .container
-            .row.no-gutters.slider-text.align-items-center.justify-content-center
-                .col-md-9.ftco-animate.text-center
-                    h1.mb-2.bread Oy Kullanma
-                    p.breadcrumbs
-                        span.mr-2
-                            a(href='index')
-                                | Anasayfa
-                                i.ion-ios-arrow-forward
-                        span
-                            | Oy Kullanma
-                            i.ion-ios-arrow-forward
-    section.ftco-section.ftco-services
-        .container
-            .row
-                .col-md-4.d-flex.services.align-self-stretch.p-4.ftco-animate
-                    .media.block-6.d-block
-                        .img.w-100(style='background-image: url(images/dept-1.jpg);')
-                        .media-body.p-2.mt-3
-                            h3.heading Dental Implants
-                            p
-                                | Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
-                .col-md-4.d-flex.services.align-self-stretch.p-4.ftco-animate
-                    .media.block-6.d-block
-                        .img.w-100(style='background-image: url(images/dept-2.jpg);')
-                        .media-body.p-2.mt-3
-                            h3.heading Cosmetic Dentistry
-                            p
-                                | Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
-                .col-md-4.d-flex.services.align-self-stretch.p-4.ftco-animate
-                    .media.block-6.d-block
-                        .img.w-100(style='background-image: url(images/dept-3.jpg);')
-                        .media-body.p-2.mt-3
-                            h3.heading Dental Care
-                            p
-                                | Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
-    // loader
-    #ftco-loader.show.fullscreen
-        svg.circular(width='48px' height='48px')
-            circle.path-bg(cx='24' cy='24' r='22' fill='none' stroke-width='4' stroke='#eeeeee')
-            circle.path(cx='24' cy='24' r='22' fill='none' stroke-width='4' stroke-miterlimit='10' stroke='#F96D00')
+            form(action='/blockchain/network/transaction/broadcast', method='POST', required='true')
+                .form-group.text-monospace.text-uppercase.text-sm-center.text-md-center.text-lg-center.text-xl-center.d-flex.float-none.flex-row.justify-content-around
+                    img(src='images/A.png', width="100", height="100")
+                    img(src='images/B.png', width="100", height="100")
+                    img(src='images/C.png', width="100", height="100")
+                    img(src='images/D.png', width="100", height="100")
+                .form-group.text-monospace.text-uppercase.text-sm-center.text-md-center.text-lg-center.text-xl-center.border.rounded.shadow-lg.d-flex.float-none.flex-row.justify-content-around
+                    .custom-control.custom-radio
+                        input#formCheck-1.custom-control-input(type='radio', name='choice', value='A')
+                        label.radio-inline.custom-control-label(for='formCheck-1') A Partisi
+                    .custom-control.custom-radio
+                        input#formCheck-2.custom-control-input(type='radio', name='choice', value='B')
+                        label.radio-inline.custom-control-label(for='formCheck-2') B Partisi
+                    .custom-control.custom-radio
+                        input#formCheck-3.custom-control-input(type='radio', name='choice', value='C')
+                        label.radio-inline.custom-control-label(for='formCheck-3') C Partisi
+                    .custom-control.custom-radio
+                        input#formCheck-4.custom-control-input(type='radio', name='choice', value='D', rightToLeft='yes')
+                        label.radio-inline.custom-control-label(for='formCheck-4') D Partisi
+                .form-group.text-monospace.text-uppercase.text-sm-center.text-md-center.text-lg-center.text-xl-center.d-flex.float-none.flex-row.justify-content-around
+                    button.btn.btn-outline-primary.btn-lg.text-uppercase.border.rounded.shadow(type='submit') OY VER
+
+        script(src='/yeni/assets/bootstrap/js/bootstrap.min.js')

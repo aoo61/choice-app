@@ -30,9 +30,8 @@ Blockchain.prototype.getLastBlock =  function() {
     return this.chain[this.chain.length - 1];
 };
 
-Blockchain.prototype.createNewTransaction = function(reward = null, choice, sender, recipient) {
+Blockchain.prototype.createNewTransaction = function(choice = null, sender, recipient) {
     const newTransaction = {
-        reward: reward,
         choice: choice,
         sender: sender,
         recipient: recipient,
@@ -76,8 +75,8 @@ Blockchain.prototype.chainIsValid = function(blockchain) {
     }
     const genesisBlock = blockchain[0];
     const correctNonce = genesisBlock['nonce'] === 100;
-    const correctPreviousBlockHash = genesisBlock['previousBlockHash'] === 0;
-    const correctHash = genesisBlock['hash'] === 0;
+    const correctPreviousBlockHash = genesisBlock['previousBlockHash'] === '0';
+    const correctHash = genesisBlock['hash'] === '0';
     const correctTransactions = genesisBlock['transactions'].length === 0;
 
     if(!correctNonce || !correctPreviousBlockHash || !correctHash || !correctTransactions)
@@ -99,7 +98,7 @@ Blockchain.prototype.getTransaction = function(transactionId) {
     let correctTransaction = null;
     let correctBlock = null;
     this.chain.forEach(block => {
-        block.transactions.forEach(transaction => {
+        block.transaction.forEach(transaction => {
             if(transaction.transactionId === transactionId) {
                 correctTransaction = transaction;
                 correctBlock = block;
@@ -131,6 +130,22 @@ Blockchain.prototype.getAddressData = function (address) {
     return {
         addressTransactions: addressTransactions,
         addressBalance: balance
+    };
+};
+
+Blockchain.prototype.getResults = function() {
+    let choice = [];
+    let vote = 0;
+    this.chain.forEach(block => {
+        block.transaction.forEach(transaction => {
+            vote++;
+            if(transaction.choice != null)
+                choice.push(transaction.choice);
+        });
+    });
+    return {
+        choice,
+        vote
     };
 };
 
