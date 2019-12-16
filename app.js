@@ -7,6 +7,8 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const networkNodeRouter = require('./routes/networkNode');
+const contactRouter = require('./routes/contact');
+
 
 const app = express();
 
@@ -34,7 +36,8 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use('/', indexRouter);
 //app.use('/blockchain', verifyToken);
 app.use('/users', usersRouter);
-app.use('/blockchain/network', networkNodeRouter);
+app.use('/contact', contactRouter);
+app.use('/blockchain', networkNodeRouter);
 
 //catch 404 and forward to error handler
 app.use((req, res, next) => {

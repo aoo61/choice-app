@@ -1,15 +1,15 @@
 extends layout
 
 block content
-    section.hero-wrap.hero-wrap-2(style="background-image: url('images/secim.jpg');" data-stellar-background-ratio='0.5')
+    section.hero-wrap.hero-wrap-2(style="background-image: url('/images/secim.jpg');" data-stellar-background-ratio='0.5')
         .overlay
-        .container(ng-controller="indexController")
+        .container
             .row.no-gutters.slider-text.align-items-center.justify-content-center
                 .col-md-9.ftco-animate.text-center
                     h1.mb-2.bread Hakkımızda
                     p.breadcrumbs
                         span.mr-2
-                            a(href='index')
+                            a(href='/index')
                                 | Ana Sayfa
                                 i.ion-ios-arrow-forward
                         span
@@ -18,7 +18,7 @@ block content
     section.ftco-section.ftco-no-pt.ftco-no-pb
         .container
             .row.no-gutters
-                .col-md-5.p-md-5.img.img-2.mt-5.mt-md-0(style='background-image: url(images/about.jpg);')
+                .col-md-5.p-md-5.img.img-2.mt-5.mt-md-0(style='background-image: url(/images/about.jpg);')
                 .col-md-7.wrap-about.py-4.py-md-5.ftco-animate
                     .heading-section.mb-5
                         .pl-md-5.ml-md-5.pt-md-5
@@ -41,7 +41,7 @@ block content
                     .carousel-testimony.owl-carousel
                         .item
                             .testimony-wrap.d-flex
-                                .user-img(style='background-image: url(images/unal-hoca.jpg)')
+                                .user-img(style='background-image: url(/images/unal-hoca.jpg)')
                                 .text.pl-4.bg-light
                                     span.quote.d-flex.align-items-center.justify-content-center
                                     p
@@ -50,7 +50,7 @@ block content
                                     span.position Öğretim Görevlisi
                         .item
                             .testimony-wrap.d-flex
-                                .user-img(style='background-image: url(images/bill-gates.jpg)')
+                                .user-img(style='background-image: url(/images/bill-gates.jpg)')
                                 .text.pl-4.bg-light
                                     span.quote.d-flex.align-items-center.justify-content-center
                                     p
@@ -59,7 +59,7 @@ block content
                                     span.position Microsoft CEO
                         .item
                             .testimony-wrap.d-flex
-                                .user-img(style='background-image: url(images/zuckerberg.jpg)')
+                                .user-img(style='background-image: url(/images/zuckerberg.jpg)')
                                 .text.pl-4.bg-light
                                     span.quote.d-flex.align-items-center.justify-content-center
                                     p
@@ -68,7 +68,7 @@ block content
                                     span.position Facebook CEO
                         .item
                             .testimony-wrap.d-flex
-                                .user-img(style='background-image: url(images/person_4.jpg)')
+                                .user-img(style='background-image: url(/images/person_4.jpg)')
                                 .text.pl-4.bg-light
                                     span.quote.d-flex.align-items-center.justify-content-center
                                     p
@@ -77,7 +77,7 @@ block content
                                     span.position Öğrenci
                         .item
                             .testimony-wrap.d-flex
-                                .user-img(style='background-image: url(images/person-5.jpg)')
+                                .user-img(style='background-image: url(/images/person-5.jpg)')
                                 .text.pl-4.bg-light
                                     span.quote.d-flex.align-items-center.justify-content-center
                                     p

@@ -1,16 +1,3 @@
-
-html, body {
-    min-height: 100vh;
-    background-color: #e8e8e8;
-}
-.container {
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-#page-title {
-    text-align: center;
-    margin-bottom: 40px;
-}
 .table-title {
     margin-bottom: 20px;
     text-align: center;

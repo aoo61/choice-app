@@ -1,4 +1,5 @@
 doctype html
+
 head
   title Seçim Benim - Blockchain İle Güvenli Seçim
   meta(charset='utf-8')
@@ -6,25 +7,27 @@ head
 
   block css
     link(href='https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700' rel='stylesheet')
-    link(rel='stylesheet' href='stylesheets/css/open-iconic-bootstrap.min.css')
-    link(rel='stylesheet' href='stylesheets/css/animate.css')
-    link(rel='stylesheet' href='stylesheets/css/owl.carousel.min.css')
-    link(rel='stylesheet' href='stylesheets/css/owl.theme.default.min.css')
-    link(rel='stylesheet' href='stylesheets/css/magnific-popup.css')
-    link(rel='stylesheet' href='stylesheets/css/aos.css')
-    link(rel='stylesheet' href='stylesheets/css/ionicons.min.css')
-    link(rel='stylesheet' href='stylesheets/css/bootstrap-datepicker.css')
-    link(rel='stylesheet' href='stylesheets/css/jquery.timepicker.css')
-    link(rel='stylesheet' href='stylesheets/css/flaticon.css')
-    link(rel='stylesheet' href='stylesheets/css/icomoon.css')
-    link(rel='stylesheet' href='stylesheets/css/style.css')
+    link(rel='stylesheet' href='/stylesheets/css/open-iconic-bootstrap.min.css')
+    link(rel='stylesheet' href='/stylesheets/css/animate.css')
+    link(rel='stylesheet' href='/stylesheets/css/owl.carousel.min.css')
+    link(rel='stylesheet' href='/stylesheets/css/owl.theme.default.min.css')
+    link(rel='stylesheet' href='/stylesheets/css/magnific-popup.css')
+    link(rel='stylesheet' href='/stylesheets/css/aos.css')
+    link(rel='stylesheet' href='/stylesheets/css/ionicons.min.css')
+    link(rel='stylesheet' href='/stylesheets/css/bootstrap-datepicker.css')
+    link(rel='stylesheet' href='/stylesheets/css/jquery.timepicker.css')
+    link(rel='stylesheet' href='/stylesheets/css/flaticon.css')
+    link(rel='stylesheet' href='/stylesheets/css/icomoon.css')
+    link(rel='stylesheet' href='/stylesheets/css/style.css')
+    link(rel='stylesheet' href='/stylesheets/css/results-progress.css')
+    link(rel='stylesheet' href='/stylesheets/css/result-prog.min.css')
 
   body
     .py-md-5.py-4.border.bottom
       .container
         .row.no-gutters.d-flex.align-items-start.align-items-center.px-3.px-md-0
           .col-md-12.order-md-2.mb-2.mb-md-0.align-items-center.text-center
-            a.navbar-brand(href='index')
+            a.navbar-brand(href='/index')
               | Seçim Benim
               span with Blockchain
     nav#ftco-navbar.navbar.navbar-expand-lg.navbar-dark.bg-dark.ftco-navbar-light
@@ -35,38 +38,37 @@ head
         #ftco-nav.collapse.navbar-collapse
           ul.navbar-nav.m-auto
             li.nav-item.active
-              a.nav-link.pl-0(href='index') Anasayfa
+              a.nav-link.pl-0(href='/index') Anasayfa
             li.nav-item.active
-              a.nav-link(href='vote') Oy Kullan
+              a.nav-link(href='/vote') Oy Kullan
             li.nav-item.active
-              a.nav-link(href='blockchain/network/results') Sonuçlar
+              a.nav-link(href='/blockchain/results') Sonuçlar
             li.nav-item.active
-              a.nav-link(href='blockchain') Blockchain
+              a.nav-link(href='/blockchain') Blockchain
             li.nav-item.active
-              a.nav-link(href='about') Hakkımızda
+              a.nav-link(href='/about') Hakkımızda
             li.nav-item.active
-              a.nav-link(href='contact') İletişim
+              a.nav-link(href='/contact') İletişim
     // END nav
     block content
     block javascript
-      script(src='javascripts/jquery.min.js')
-      script(src='javascripts/jquery-migrate-3.0.1.min.js')
-      script(src='javascripts/popper.min.js')
-      script(src='javascripts/bootstrap.min.js')
-      script(src='javascripts/jquery.easing.1.3.js')
-      script(src='javascripts/jquery.waypoints.min.js')
-      script(src='javascripts/jquery.stellar.min.js')
-      script(src='javascripts/owl.carousel.min.js')
-      script(src='javascripts/jquery.magnific-popup.min.js')
-      script(src='javascripts/aos.js')
-      script(src='javascripts/jquery.animateNumber.min.js')
-      script(src='javascripts/bootstrap-datepicker.js')
-      script(src='javascripts/jquery.timepicker.min.js')
-      script(src='javascripts/scrollax.min.js')
+      script(src='/javascripts/jquery.min.js')
+      script(src='/javascripts/jquery-migrate-3.0.1.min.js')
+      script(src='/javascripts/popper.min.js')
+      script(src='/javascripts/bootstrap.min.js')
+      script(src='/javascripts/jquery.easing.1.3.js')
+      script(src='/javascripts/jquery.waypoints.min.js')
+      script(src='/javascripts/jquery.stellar.min.js')
+      script(src='/javascripts/owl.carousel.min.js')
+      script(src='/javascripts/jquery.magnific-popup.min.js')
+      script(src='/javascripts/aos.js')
+      script(src='/javascripts/jquery.animateNumber.min.js')
+      script(src='/javascripts/bootstrap-datepicker.js')
+      script(src='/javascripts/jquery.timepicker.min.js')
+      script(src='/javascripts/scrollax.min.js')
       script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false')
-      script(src='javascripts/google-map.js')
-      script(src='javascripts/main.js')
-      script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js')
+      script(src='/javascripts/google-map.js')
+      script(src='/javascripts/main.js')
       script(src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous')
       script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous')
 
@@ -93,23 +95,23 @@ head
               h2.ftco-heading-2 Sayfalar
               ul.list-unstyled
                 li
-                  a(href='index')
+                  a(href='/index')
                     span.ion-ios-arrow-round-forward.mr-2
                     | Anasayfa
                 li
-                  a(href='results')
+                  a(href='/blockchain/results')
                     span.ion-ios-arrow-round-forward.mr-2
                     | Sonuçlar
                 li
-                  a(href='blockchain')
+                  a(href='/blockchain')
                     span.ion-ios-arrow-round-forward.mr-2
                     | Blockchain
                 li
-                  a(href='about')
+                  a(href='/about')
                     span.ion-ios-arrow-round-forward.mr-2
                     | Hakkımızda
                 li
-                  a(href='contact')
+                  a(href='/contact')
                     span.ion-ios-arrow-round-forward.mr-2
                     | İletişim
         .row

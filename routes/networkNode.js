@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Blockchain i gösterme
-app.get('/', (req, res) => {
+app.get('/show', (req, res) => {
     res.send(myBlockchain);
 });
 
@@ -83,8 +83,9 @@ app.get('/mine', (req, res) => {
             };
             return rp(requestOptions);
         })
+
         .then(data => {
-            res.json({
+            res.send({
                 note: "Yeni block oluşturuldu ve broadcast de yayınlandı.",
                 block: newBlock
             });
@@ -93,7 +94,10 @@ app.get('/mine', (req, res) => {
         note: "Block minning yapıldı.",
         block: newBlock
     });*/
-    res.render('mine');
+    res.render('mine', {
+        note: "Yeni block oluşturuldu ve broadcast de yayınlandı.",
+        block: newBlock
+    });
 });
 
 // Yeni block u onaylama
@@ -219,6 +223,15 @@ app.get('/block/:blockHash', (req, res) => {
     });
 });
 
+app.get('/mineBlock', (req, res) => {
+    let mineBlock = null;
+    myBlockchain.chain.forEach(block => {
+        if(block.index === myBlockchain.getLastBlock()['index'])
+            mineBlock = block;
+    });
+    res.json({ block: mineBlock});
+});
+
 app.get('/transaction/:transactionId', (req, res) => {
     const transactionId = req.params.transactionId;
     const transactionData = myBlockchain.getTransaction(transactionId);
@@ -236,8 +249,8 @@ app.get('/address/:address', (req, res) => {
     });
 });
 
-app.get('/block-explorer', (req, res) => {
-    res.sendFile('./views/block-explorer', { root: __dirname });
+app.get('/block-explorer', (req, res, next) => {
+    res.render('block-explorer');
 });
 
 app.get('/results', (req, res, next) => {
