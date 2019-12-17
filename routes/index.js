@@ -82,9 +82,5 @@ app.post('/authenticate', (req, res) => {
     }
   });
 });
-/*
-app.get('/block-explorer', (req, res, next) => {
-  res.render('block-explorer', { root: __dirname });
-});*/
 
 module.exports = app;

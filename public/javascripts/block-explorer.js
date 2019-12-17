@@ -2,7 +2,6 @@ window.app = angular.module('BlockExplorer', []);
 app.controller('MainController', function($scope, $http) {
     $scope.block = null;
     $scope.initialSearchMade = false;
-
     $http.get(`/blockchain/mineBlock`)
         .then(response => {
             $scope.block = response.data.block;

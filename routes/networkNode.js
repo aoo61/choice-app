@@ -90,10 +90,7 @@ app.get('/mine', (req, res) => {
                 block: newBlock
             });
         });
-    /*res.json({
-        note: "Block minning yapıldı.",
-        block: newBlock
-    });*/
+
     res.render('mine', {
         note: "Yeni block oluşturuldu ve broadcast de yayınlandı.",
         block: newBlock
@@ -126,7 +123,10 @@ app.post('/yeni-block-onayi', (req, res) => {
 app.post('/node-broadcast-yayinlama', (req, res) => {
     const newNodeUrl = req.body.newNodeUrl;
     if (myBlockchain.networkNodes.indexOf(newNodeUrl) === -1)
-        myBlockchain.networkNodes.push(newNodeUrl);
+        url = newNodeUrl.split('\r\n');
+        url.forEach(node => {
+            myBlockchain.networkNodes.push('http://' + node);
+        });
     const regNodesPromises = [];
     myBlockchain.networkNodes.forEach(networkNodeUrl => {
         const requestOptions = {
@@ -146,10 +146,8 @@ app.post('/node-broadcast-yayinlama', (req, res) => {
                 json: true
             };
             return rp(bulkRegisterOptions);
-        })
-        .then(data => {
-            res.json({note: 'Yeni node ağa başarıyla kayıt edildi.'});
-        })
+        });
+    res.redirect('node');
 });
 
 // Node kayıt etme
@@ -249,14 +247,37 @@ app.get('/address/:address', (req, res) => {
     });
 });
 
-app.get('/block-explorer', (req, res, next) => {
-    res.render('block-explorer');
+app.get('/node', (req, res, next) => {
+    res.render('node');
 });
 
 app.get('/results', (req, res, next) => {
-    let choice = myBlockchain.getResults();
-    console.log(choice);
     res.render('results');
+});
+
+app.get('/result', (req, res, next) => {
+    let choice = myBlockchain.getResults();
+    let choiceA = 0;
+    let choiceB = 0;
+    let choiceC = 0;
+    let choiceD = 0;
+    choice.choice.forEach(data => {
+        if(data === 'A')
+            choiceA++;
+        else if(data === 'B')
+            choiceB++;
+        else if(data === 'C')
+            choiceC++;
+        else
+            choiceD++;
+    });
+    res.send({
+        vote: choice.vote,
+        choiceA: choiceA,
+        choiceB: choiceB,
+        choiceC: choiceC,
+        choiceD: choiceD
+    });
 });
 
 module.exports = app;

@@ -1,29 +1,32 @@
 extends layout
 
+append css
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js')
 block content
-    section.ftco-section.bg-light
+    section.hero-wrap.hero-wrap-2(style="background-image: url('/images/secim.jpg');" data-stellar-background-ratio='0.5')
+        .overlay
         .container
-            .row
-                .progress
-                    .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 60%;')
-                        span.sr-only 60%
-                    span.progress-type A Partisi
-                    span.progress-completed 60%
-                .progress
-                    .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='40', aria-valuemin='0', aria-valuemax='100', style='width: 40%')
-                        span.sr-only 40%
-                    span.progress-type B Partisi
-                    span.progress-completed 40%
-                .progress
-                    .progress-bar.progress-bar-info(role='progressbar', aria-valuenow='20', aria-valuemin='0', aria-valuemax='100', style='width: 20%')
-                        span.sr-only 20%
-                    span.progress-type C Partisi
-                    span.progress-completed 20%
-                .progress
-                    .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 20%')
-                        span.sr-only 20%
-                    span.progress-type D Partisi
-                    span.progress-completed 20%
+            .row.no-gutters.slider-text.align-items-center.justify-content-center
+                .col-md-9.ftco-animate.text-center
+                    h1.mb-2.bread Sonuçlar
+                    p.breadcrumbs
+                        span.mr-2
+                            a(href='/index')
+                                | Ana Sayfa
+                                i.ion-ios-arrow-forward
+                        span
+                            | Sonuçlar
+                            i.ion-ios-arrow-forward
+
+    section.ftco-section.bg-light(ng-app='Results')
+        .container.d-flex.slider-text.align-items-center.justify-content-center(ng-controller='resultsController')
+            .row.no-gutters.slider-text.align-items-center.justify-content-center
+                h3 Seçim Sonuçları
+                #piechart.col-md-10.offset-md-1
+
+    append javascript
+        script(src='https://www.gstatic.com/charts/loader.js')
+        script(src='/javascripts/sonuc.js')
 
     // loader
     #ftco-loader.show.fullscreen

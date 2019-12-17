@@ -23,7 +23,6 @@ block content
                             | Mining
                             i.ion-ios-arrow-forward
 
-
     section.ftco-section.testimony-section.bg-light(ng-app='BlockExplorer')
         .container(ng-controller='MainController')
             .row
@@ -51,8 +50,10 @@ block content
                                 td.bold Number Transactions
                                 td {{ block.transaction.length }}
                     // end 'display block' table
+
 append javascript
     script(src='/javascripts/block-explorer.js')
+
     // loader
     #ftco-loader.show.fullscreen
         svg.circular(width='48px' height='48px')
