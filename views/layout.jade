@@ -39,7 +39,7 @@ head
             li.nav-item.active
               a.nav-link(href='/vote') Oy Kullan
             li.nav-item.active
-              a.nav-link(href='/blockchain/results') Sonuçlar
+              a.nav-link(href='/results') Sonuçlar
             li.nav-item.active
               a.nav-link(href='/blockchain') Blockchain
             li.nav-item.active
@@ -47,7 +47,9 @@ head
             li.nav-item.active
               a.nav-link(href='/contact') İletişim
     // END nav
+
     block content
+
     block javascript
       script(src='/javascripts/jquery.min.js')
       script(src='/javascripts/jquery-migrate-3.0.1.min.js')
@@ -80,11 +82,11 @@ head
                   span.icon.icon-map-marker
                   span.text Cumhuriyet Mh. Hürriyet Cd. Zeytin Sk. No:16/1 Başiskele / Kocaeli
                 li
-                  a(href='#')
+                  a(href='tel://02623443137')
                     span.icon.icon-phone
                     span.text 262 344 31 37
                 li
-                  a(href='#')
+                  a(href='mailto:g140910030@sakarya.edu.tr')
                     span.icon.icon-envelope
                     span.text g140910030@sakarya.edu.tr
           .col-md
@@ -96,7 +98,7 @@ head
                     span.ion-ios-arrow-round-forward.mr-2
                     | Anasayfa
                 li
-                  a(href='/blockchain/results')
+                  a(href='/results')
                     span.ion-ios-arrow-round-forward.mr-2
                     | Sonuçlar
                 li
@@ -114,8 +116,7 @@ head
         .row
           .col-md-12.text-center
             p
-
               |  Tüm hakları saklıdır
-              | Copyright &copy;
+              | &copy; Copyright
               script.
                 document.write(new Date().getFullYear());

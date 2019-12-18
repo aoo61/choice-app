@@ -122,12 +122,17 @@ app.post('/yeni-block-onayi', (req, res) => {
 // Kayıt edilen node u broadcast e yayınlama
 app.post('/node-broadcast-yayinlama', (req, res) => {
     const newNodeUrl = req.body.newNodeUrl;
-    if (myBlockchain.networkNodes.indexOf(newNodeUrl) === -1)
-        url = newNodeUrl.split('\r\n');
+    let url = newNodeUrl.split('\r\n');
+    if (myBlockchain.networkNodes.indexOf(url) === -1)
         url.forEach(node => {
             myBlockchain.networkNodes.push('http://' + node);
         });
     const regNodesPromises = [];
+    const consensus = {
+        uri: url + '/consensus',
+        method: 'GET',
+    };
+    regNodesPromises.push(rp(consensus));
     myBlockchain.networkNodes.forEach(networkNodeUrl => {
         const requestOptions = {
             uri: networkNodeUrl + '/node-kayit',
@@ -251,10 +256,6 @@ app.get('/node', (req, res, next) => {
     res.render('node');
 });
 
-app.get('/results', (req, res, next) => {
-    res.render('results');
-});
-
 app.get('/result', (req, res, next) => {
     let choice = myBlockchain.getResults();
     let choiceA = 0;
@@ -278,6 +279,10 @@ app.get('/result', (req, res, next) => {
         choiceC: choiceC,
         choiceD: choiceD
     });
+});
+
+app.get('/search', (req, res, next) => {
+    res.render('search');
 });
 
 module.exports = app;

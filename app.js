@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const networkNodeRouter = require('./routes/networkNode');
 const contactRouter = require('./routes/contact');
 
@@ -16,16 +15,6 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// Database connection
-const db = require('./helper/db')();
-
-//Middleware
-const verifyToken = require('./middleware/verify-token');
-
-//Config
-const config = require('./config');
-app.set('api_secret_key', config.api_secret_key);
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,8 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', indexRouter);
-//app.use('/blockchain', verifyToken);
-app.use('/users', usersRouter);
 app.use('/contact', contactRouter);
 app.use('/blockchain', networkNodeRouter);
 
