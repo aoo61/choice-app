@@ -3,13 +3,14 @@ extends layout
 append css
     link(rel='stylesheet' href='/stylesheets/css/block-explorer.css')
     script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js')
+
 block content
     section.hero-wrap.hero-wrap-2(style="background-image: url('/images/secim.jpg');" data-stellar-background-ratio='0.5')
         .overlay
         .container
             .row.no-gutters.slider-text.align-items-center.justify-content-center
                 .col-md-9.ftco-animate.text-center
-                    h1.mb-2.bread Mining
+                    h1.mb-2.bread Arama
                     p.breadcrumbs
                         span.mr-2
                             a(href='/index')
@@ -20,15 +21,32 @@ block content
                                 | Blockchain
                                 i.ion-ios-arrow-forward
                         span
-                            | Mining
+                            | Arama
                             i.ion-ios-arrow-forward
 
-    section.ftco-section.testimony-section.bg-light(ng-app='Mine')
-        .container(ng-controller='mineController')
+    section.ftco-section.testimony-section.bg-light(ng-app='Search')
+        .container(ng-controller='searchController')
+            .row
+                .col-md-8.offset-md-2.text-monospace.text-uppercase.text-sm-center.text-md-center.text-lg-center.text-xl-center.justify-content-around
+                    h3 BLOCK VE TRANSACTİON ARAMA
+            .row
+                .col-md-6.offset-md-3.text-monospace.text-uppercase.text-sm-center.text-md-center.text-lg-center.text-xl-center.justify-content-around
+                    form(ng-submit='search(searchValue)')
+                        .form-group
+                            input.form-control(type='text', ng-model='searchValue')
+                        .form-group
+                            select.form-control(ng-model='searchType')
+                                option(value='block') Block Hash
+                                option(value='transaction') Transaction ID
+                        button.btn.btn-primary.py-3.px-5.btn-lg.text-uppercase(type='submit')
+                            | Ara
+                        p.no-data-text(ng-if='!block && !transaction && initialSearchMade')
+                            | No data found for search.
+
             .row
                 .col-md-10.offset-md-1
                     // 'display block' table
-                    h3.table-title(ng-if='block') Mining Yapılan Blok
+                    h3.table-title(ng-if='block') Block
                     table.table.table-striped(ng-if='block')
                         tbody
                             tr
@@ -50,12 +68,17 @@ block content
                                 td.bold Number Transactions
                                 td {{ block.transaction.length }}
                     // end 'display block' table
-                .col-md-10.offset-md-1.text-monospace.text-uppercase.text-sm-center.text-md-center.text-lg-center.text-xl-center.d-flex.float-none.flex-row.justify-content-around
-                    a.btn.btn-primary.py-3.px-5.btn-lg.text-uppercase(type='submit' href='/blockchain/mine') Yeniden Mining Yap
 
+                    // 'display transaction' table
+                    h3.table-title(ng-if='transaction') Transaction
+                    table.table.table-striped(ng-if='transaction')
+                        tbody
+                            tr
+                                td.bold Choice
+                                td {{ transaction.choice }}
+                    // end 'display transaction' table
 append javascript
-    script(src='/javascripts/controller/mineController.js')
-
+    script(src='/javascripts/controller/searchController.js')
     // loader
     #ftco-loader.show.fullscreen
         svg.circular(width='48px' height='48px')
