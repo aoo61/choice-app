@@ -74,6 +74,7 @@ Blockchain.prototype.chainIsValid = function(blockchain) {
         if(currentBlock['previousBlockHash'] !== prevBlock['hash'])
             validChain = false;
     }
+
     const genesisBlock = blockchain[0];
     const correctNonce = genesisBlock['nonce'] === 100;
     const correctPreviousBlockHash = genesisBlock['previousBlockHash'] === '0';
@@ -109,28 +110,6 @@ Blockchain.prototype.getTransaction = function(transactionId) {
     return {
         transaction: correctTransaction,
         block: correctBlock
-    };
-};
-
-Blockchain.prototype.getAddressData = function (address) {
-    const addressTransactions = [];
-    this.chain.forEach(block => {
-        block.transactions.forEach(transaction => {
-            if (transaction.sender === address || transaction.recipient === address){
-                addressTransactions.push(transaction);
-            };
-        });
-    });
-    let balance = 0;
-    addressTransactions.forEach(transaction => {
-        if (transaction.recipient === address)
-            balance += transaction.reward;
-        else if (transaction.sender === address)
-            balance -= transaction.reward;
-    });
-    return {
-        addressTransactions: addressTransactions,
-        addressBalance: balance
     };
 };
 

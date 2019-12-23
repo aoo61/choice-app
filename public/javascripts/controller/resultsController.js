@@ -1,7 +1,7 @@
-let choiceA = null;
-let choiceB = null;
-let choiceC = null;
-let choiceD = null;
+let choiceA = 0;
+let choiceB = 0;
+let choiceC = 0;
+let choiceD = 0;
 window.app = angular.module('Results', []);
 app.controller('resultsController', function ($scope, $http) {
     $scope.vote = null;

@@ -20,11 +20,12 @@ block content
 
     section.ftco-section.bg-light(ng-app='Results')
         .container.d-flex.slider-text.align-items-center.justify-content-center(ng-controller='resultsController')
-            .row.no-gutters.slider-text.align-items-center.justify-content-center(ng-if='vote')
+            .row.no-gutters.slider-text.align-items-center.justify-content-center
                 h3 Seçim Sonuçları
                 #piechart.col-md-10.offset-md-1
-                .col-md-10.offset-md-1.text-monospace.text-uppercase(ng-if='invalidVote')
+                .col-md-10.offset-md-1.text-monospace.text-uppercase(ng-if='vote')
                     h3.no-gutters.slider-text.align-items-center.justify-content-center(ng-if='vote') Kullanılan Toplam Oy: {{ vote }}
+                .col-md-10.offset-md-1.text-monospace.text-uppercase(ng-if='invalidVote')
                     h3.no-gutters.slider-text.align-items-center.justify-content-center(ng-if='invalidVote') Geçersiz Oy: {{ invalidVote }}
                 .col-md-10.offset-md-1.text-monospace.text-uppercase.text-sm-center.text-md-center.text-lg-center.text-xl-center.d-flex.float-none.flex-row.justify-content-around
                     a.btn.btn-primary.py-3.px-5.btn-lg.text-uppercase(type='submit' href='results') Yenile

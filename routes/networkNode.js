@@ -224,14 +224,6 @@ app.get('/transaction/:transactionId', (req, res) => {
     });
 });
 
-app.get('/address/:address', (req, res) => {
-    const address = req.params.address;
-    const addressData = myBlockchain.getAddressData(address);
-    res.json({
-        addressData: addressData
-    });
-});
-
 app.get('/node', (req, res, next) => {
     res.render('node');
 });
