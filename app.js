@@ -8,7 +8,6 @@ const indexRouter = require('./routes/index');
 const networkNodeRouter = require('./routes/networkNode');
 const contactRouter = require('./routes/contact');
 
-
 const app = express();
 
 // view engine setup

@@ -26,13 +26,13 @@ app.post('/transaction', (req, res) => {
 
 //Oluşturulan transaction ı broadcast te yayınlama
 app.post('/transaction/broadcast', (req, res) => {
-    const newTransaction = myBlockchain.createNewTransaction(req.body.choice, req.body.sender, req.body.recipient);
+    const newTransaction = myBlockchain.createNewTransaction(req.body.choice);
     myBlockchain.addTransactionToPendingTransactions(newTransaction);
 
     const requestPromises = [];
     myBlockchain.networkNodes.forEach(networkNodeUrl => {
         const requestOptions = {
-            uri: networkNodeUrl + '/transaction',
+            uri: networkNodeUrl + '/blockchain/transaction',
             method: 'POST',
             body: newTransaction,
             json: true
@@ -55,41 +55,19 @@ app.get('/mine', (req, res) => {
     };
     const nonce = myBlockchain.proofOfWork(previousBlockHash, currentBlockData);
     const blockHash = myBlockchain.hashBlock(previousBlockHash, currentBlockData, nonce);
-
-    myBlockchain.createNewTransaction(12.5, null,"00", nodeAddress);
-
     const newBlock = myBlockchain.createNewBlock(nonce, previousBlockHash, blockHash);
+
     const requestPromises = [];
     myBlockchain.networkNodes.forEach(networkNodeUrl => {
         const requestOptions = {
-            uri: networkNodeUrl + '/yeni-block-onayi',
+            uri: networkNodeUrl + '/blockchain/yeni-block-onayi',
             method: 'POST',
             body: { newBlock: newBlock },
             json: true
         };
         requestPromises.push(rp(requestOptions));
     });
-    Promise.all(requestPromises)
-        .then(data => {
-            const requestOptions = {
-                uri: myBlockchain.currentNodeUrl + '/transaction/broadcast',
-                method: 'POST',
-                body: {
-                    choice: null,
-                    sender: "00",
-                    recipient: nodeAddress
-                },
-                json: true
-            };
-            return rp(requestOptions);
-        })
-
-        .then(data => {
-            res.send({
-                note: "Yeni block oluşturuldu ve broadcast de yayınlandı.",
-                block: newBlock
-            });
-        });
+    Promise.all(requestPromises);
 
     res.render('mine', {
         note: "Yeni block oluşturuldu ve broadcast de yayınlandı.",
@@ -122,35 +100,37 @@ app.post('/yeni-block-onayi', (req, res) => {
 // Kayıt edilen node u broadcast e yayınlama
 app.post('/node-broadcast-yayinlama', (req, res) => {
     const newNodeUrl = req.body.newNodeUrl;
-    let url = newNodeUrl.split('\r\n');
-    if (myBlockchain.networkNodes.indexOf(url) === -1)
-        url.forEach(node => {
-            myBlockchain.networkNodes.push('http://' + node);
-        });
+    if (myBlockchain.networkNodes.indexOf(newNodeUrl) == -1)
+        myBlockchain.networkNodes.push(newNodeUrl);
+
     const regNodesPromises = [];
-    const consensus = {
-        uri: url + '/consensus',
-        method: 'GET',
-    };
-    regNodesPromises.push(rp(consensus));
     myBlockchain.networkNodes.forEach(networkNodeUrl => {
         const requestOptions = {
-            uri: networkNodeUrl + '/node-kayit',
+            uri: networkNodeUrl + '/blockchain/node-kayit',
             method: 'POST',
-            body: { newNodeUrl : networkNodeUrl },
+            body: { newNodeUrl : newNodeUrl },
             json: true
         };
         regNodesPromises.push(rp(requestOptions));
     });
+
     Promise.all(regNodesPromises)
         .then(data => {
             const bulkRegisterOptions = {
-                uri: newNodeUrl + '/coklu-node-kaydi',
+                uri: newNodeUrl + '/blockchain/coklu-node-kaydi',
                 method: 'POST',
                 body: { allNetworkNodes: [...myBlockchain.networkNodes, myBlockchain.currentNodeUrl]},
                 json: true
             };
             return rp(bulkRegisterOptions);
+        })
+        .then(data => {
+            const consensus = {
+                uri: newNodeUrl + '/blockchain/consensus',
+                method: 'GET',
+                json: true
+            };
+            return rp(consensus);
         });
     res.redirect('node');
 });
@@ -158,19 +138,18 @@ app.post('/node-broadcast-yayinlama', (req, res) => {
 // Node kayıt etme
 app.post('/node-kayit', (req, res) => {
     const newNodeUrl = req.body.newNodeUrl;
-    const nodeNotAlreadyPresent = myBlockchain.networkNodes.indexOf(newNodeUrl) === -1;
+    const nodeNotAlreadyPresent = myBlockchain.networkNodes.indexOf(newNodeUrl) == -1;
     const notCurrentNode = myBlockchain.currentNodeUrl !== newNodeUrl;
     if(nodeNotAlreadyPresent && notCurrentNode)
         myBlockchain.networkNodes.push(newNodeUrl);
     res.json({ note: 'Yeni node başarıyla kayıt edildi.'});
-
 });
 
 // Aynı anda çoklu node kaydetme
 app.post('/coklu-node-kaydi', (req, res) => {
     const allNetworkNodes = req.body.allNetworkNodes;
     allNetworkNodes.forEach(networkNodeUrl => {
-        const nodeNotAlreadyPresent = myBlockchain.networkNodes.indexOf(networkNodeUrl) === -1;
+        const nodeNotAlreadyPresent = myBlockchain.networkNodes.indexOf(networkNodeUrl) == -1;
         const notCurrentNode = myBlockchain.currentNodeUrl !== networkNodeUrl;
         if(nodeNotAlreadyPresent && notCurrentNode)
             myBlockchain.networkNodes.push(networkNodeUrl);
@@ -183,7 +162,7 @@ app.get('/consensus', (req, res) => {
     const requestPromises =  [];
     myBlockchain.networkNodes.forEach(networkNodeUrl => {
         const requestOptions = {
-            uri: networkNodeUrl + '/blockchain',
+            uri: networkNodeUrl + '/blockchain/show',
             method: 'GET',
             json: true
         };
@@ -191,7 +170,8 @@ app.get('/consensus', (req, res) => {
     });
     Promise.all(requestPromises)
         .then(blockchains => {
-            let maxChainLength = myBlockchain.chain.length;
+            const currentChainLength = myBlockchain.chain.length;
+            let maxChainLength = currentChainLength;
             let newLongestChain = null;
             let newPendingTransactions = null;
 
@@ -202,12 +182,12 @@ app.get('/consensus', (req, res) => {
                     newPendingTransactions = blockchain.pendingTransactions;
                 }
             });
-            if (!newLongestChain || (newLongestChain && !myBlockchain.chainIsValid(newLongestChain))){
+            if (!newLongestChain || (newLongestChain && !myBlockchain.chainIsValid(newLongestChain))) {
                 res.json({
                     note: 'Mevcut zincir yerine koyulamadı.',
                     chain: myBlockchain.chain
                 });
-            } else if (newLongestChain && myBlockchain.chainIsValid(newLongestChain)) {
+            } else {
                 myBlockchain.chain = newLongestChain;
                 myBlockchain.pendingTransactions = newPendingTransactions;
                 res.json({
