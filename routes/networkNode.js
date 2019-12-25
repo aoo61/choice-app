@@ -5,8 +5,6 @@ const Blockchain = require('../Models/Blockchain');
 const uuid = require('uuid/v1');
 const rp = require('request-promise');
 
-const nodeAddress = uuid().split('-').join('');
-
 const myBlockchain = new Blockchain();
 
 app.use(bodyParser.json());
@@ -67,12 +65,13 @@ app.get('/mine', (req, res) => {
         };
         requestPromises.push(rp(requestOptions));
     });
-    Promise.all(requestPromises);
-
-    res.render('mine', {
-        note: "Yeni block oluşturuldu ve broadcast de yayınlandı.",
-        block: newBlock
-    });
+    Promise.all(requestPromises)
+        .then(data => {
+            res.render('mine', {
+                note: "Yeni block oluşturuldu ve broadcast de yayınlandı.",
+                block: newBlock
+            });
+        });
 });
 
 // Yeni block u onaylama
@@ -255,6 +254,10 @@ app.get('/result', (req, res, next) => {
 
 app.get('/search', (req, res, next) => {
     res.render('search');
+});
+
+app.get('/test', (req, res, next) => {
+    res.render('test');
 });
 
 module.exports = app;
